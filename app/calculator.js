@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import mathCommands from './commands';
 
-class App extends React.Component {
+class Calculator extends React.Component {
   render() {
     const { add, multiply, state } = this.props;
     return (
@@ -24,4 +24,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, mathCommands)(App);
+export default connect(mapStateToProps, mathCommands)(Calculator);

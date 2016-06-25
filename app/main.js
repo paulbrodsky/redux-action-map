@@ -6,7 +6,7 @@ import { assign, isNull } from 'lodash'
 
 import appState from './state';
 
-import App from './app';
+import Calculator from './calculator';
 
 const reducers = combineReducers(appState);
 const store = createStore(reducers);
@@ -14,7 +14,7 @@ const store = createStore(reducers);
 const renderApp = () => {
   return (
     <Provider store={store}>
-      <App />
+      <Calculator />
     </Provider>
   );
 };
