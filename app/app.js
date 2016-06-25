@@ -5,10 +5,12 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <div>{this.props.state.r1}</div>
-                <div>{this.props.state.r2}</div>
-                <button onClick={this.props.actionA}>A</button>
-                <button onClick={this.props.actionB}>B</button>
+                <div>{this.props.state.added.value}</div>
+                <div>{this.props.state.multiplied.value}</div>
+                <button onClick={() => this.props.onAdd(1)}>Add 1</button>
+                <button onClick={() => this.props.onAdd(10)}>Add 10</button>
+                <button onClick={() => this.props.onMultiply(2)}>Multiply by 2</button>
+                <button onClick={() => this.props.onMultiply(10)}>Multiple by 10</button>
             </div>
         );
     }
@@ -22,8 +24,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actionA: () => dispatch({type: 'r1'}),
-        actionB: () => dispatch({type: 'r2'}),
+        onAdd: (p) => dispatch({ type: 'ADD', payload: p }),
+        onMultiply: (p) => dispatch({ type: 'MULTIPLY', payload: p }),
     }
 };
 

@@ -2,33 +2,74 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux'
-import { assign } from 'lodash'
+import { assign, isNull } from 'lodash'
 
 import App from './app';
 
-function r1(state = 0, action) {
-    switch (action.type) {
-        case 'r1':
-            return state + 1;
-        default:
-            return state;
+function createReducer(mutator) {
+    return (state = mutator.initialState, action) => {
+        if (state === null || action.payload === null) {
+            return;
+        }
+        if (action.type === mutator.type) {
+            const newState = assign({}, state);
+            mutator.mutate(newState, action.payload);
+            return newState;
+        }
+        return state;
     }
 }
 
-function r2(state = 0, action) {
-    switch (action.type) {
-        case 'r2':
-            return state + 1;
-        default:
-            return state;
+/*
+ MUTATORS
+ specify an action type, initial state, and a mutate function
+ which is always guaranteed to execute only when:
+ - the specified action type is detected
+ - the state is not null
+ - the payload is not null
+ */
+
+const adder = {
+    type: 'ADD',
+
+    initialState: { value: 0 },
+
+    mutate: (state, payload) => {
+        state.value += payload;
+    },
+};
+
+class Multiplier {
+    constructor() {
+        this.type = 'MULTIPLY';
+        this.initialState = { value: 1 };
+    }
+
+    mutate(state, payload) {
+        state.value *= payload;
     }
 }
 
-const reducers = combineReducers({r1, r2});
+/*
+ APPSTATE
+ Defines the topolgy of the global state in one place.
+ */
+
+const appState = {
+    added: createReducer(adder),
+    multiplied: createReducer(new Multiplier()),
+};
+
+const reducers = combineReducers(appState);
+
 const store = createStore(reducers);
 
-ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('app'));
+const renderApp = () => {
+    return (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
+};
+
+ReactDOM.render(renderApp(), document.getElementById('app'));
