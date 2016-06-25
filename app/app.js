@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { mathCommands } from './mathCommands';
+import mathCommands from './commands';
 
 class App extends React.Component {
   render() {

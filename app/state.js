@@ -1,4 +1,4 @@
-import createReducer from  './reduxMutator';
+import createReducer from  './utils';
 import { adder, Multiplier } from  './mutators';
 
 /*
@@ -6,9 +6,7 @@ import { adder, Multiplier } from  './mutators';
  Defines the topolgy of the global state in one place.
  */
 
-export default function createAppState() {
-  return {
-    added: createReducer(adder),
-    multiplied: createReducer(new Multiplier()),
-  };
-}
+export default {
+  added: createReducer(adder),
+  multiplied: createReducer(new Multiplier()),
+};

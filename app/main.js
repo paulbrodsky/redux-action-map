@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux'
 import { assign, isNull } from 'lodash'
 
-import createAppState from './state';
+import appState from './state';
 
 import App from './app';
 
-const reducers = combineReducers(createAppState());
+const reducers = combineReducers(appState);
 const store = createStore(reducers);
 
 const renderApp = () => {

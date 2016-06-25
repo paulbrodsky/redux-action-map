@@ -13,3 +13,7 @@ export default function createReducer(mutator) {
     return state;
   }
 }
+
+export function createCommand(dispatch, type) {
+  return (payload) => dispatch({ type, payload })
+}
