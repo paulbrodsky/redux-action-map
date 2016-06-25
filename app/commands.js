@@ -1,5 +1,5 @@
 import { createCommand } from './utils';
-
+import { types } from './types';
 /*
  COMMANDS
 
@@ -7,7 +7,7 @@ import { createCommand } from './utils';
 
 export default function mathCommands(dispatch) {
   return {
-    add: createCommand(dispatch, 'ADD'),
-    multiply: createCommand(dispatch, 'MULTIPLY'),
+    add: createCommand(dispatch, types.add),
+    multiply: createCommand(dispatch, types.multiply),
   }
 }

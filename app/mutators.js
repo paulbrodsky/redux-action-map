@@ -1,3 +1,6 @@
+import { combineMutators } from  './utils';
+import { types } from './types';
+
 /*
  MUTATORS
  specify an action type, initial state, and a mutate function
@@ -8,22 +11,22 @@
  */
 
 export const adder = {
-  type: 'ADD',
-
+  type: types.add,
   initialState: { value: 0 },
-
   mutate: (state, payload) => {
     state.value += payload;
   },
 };
 
-export class Multiplier {
-  constructor() {
-    this.type = 'MULTIPLY';
-    this.initialState = { value: 1 };
-  }
-
-  mutate(state, payload) {
+export const multiplier = {
+  type: types.multiply,
+  initialState: { value: 0 },
+  mutate: (state, payload) => {
     state.value *= payload;
-  }
+  },
+};
+
+export function calculatorMutator() {
+  return combineMutators([adder, multiplier]);
 }
+
