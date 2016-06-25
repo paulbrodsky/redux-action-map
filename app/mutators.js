@@ -1,4 +1,4 @@
-import { combineMutators } from  './utils';
+import { combineMutators } from './utils';
 import { types } from './types';
 
 /*
@@ -29,4 +29,3 @@ export const multiplier = {
 export function calculatorMutator() {
   return combineMutators([adder, multiplier]);
 }
-

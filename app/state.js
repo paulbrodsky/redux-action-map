@@ -1,5 +1,5 @@
-import createReducer from  './utils';
-import { adder, multiplier, calculatorMutator } from  './mutators';
+import createReducer from './utils';
+import { adder, multiplier, calculatorMutator } from './mutators';
 
 /*
  APPSTATE

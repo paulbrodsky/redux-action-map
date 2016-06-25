@@ -9,5 +9,5 @@ export default function mathCommands(dispatch) {
   return {
     add: createCommand(dispatch, types.add),
     multiply: createCommand(dispatch, types.multiply),
-  }
+  };
 }

@@ -1,8 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import mathCommands from './commands';
 
 class Calculator extends React.Component {
+  // static propTypes = {
+  //   add: PropTypes.func.isRequired,
+  //   multiply: PropTypes.func.isRequired,
+  //   state: PropTypes.object.isRequired,
+  // };
+
   render() {
     const { add, multiply, state } = this.props;
     return (
@@ -21,8 +27,8 @@ class Calculator extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    state: state,
-  }
+    state,
+  };
 };
 
 export default connect(mapStateToProps, mathCommands)(Calculator);

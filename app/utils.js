@@ -1,4 +1,4 @@
-import { assign, isArray, map, pick, forEach } from  'lodash';
+import { assign, map } from 'lodash';
 
 export default function createReducer(mutator) {
   return (state = mutator.initialState, action) => {
@@ -10,25 +10,26 @@ export default function createReducer(mutator) {
       const newState = assign({}, state);
       if (mutator.types) {
         mutator.mutate(newState, action.type, action.payload);
-      }
-      else {
+      } else {
         mutator.mutate(newState, action.payload);
       }
       return newState;
     }
     return state;
-  }
+  };
 }
 
 export function createCommand(dispatch, type) {
-  return (payload) => dispatch({ type, payload })
+  return (payload) => dispatch({ type, payload });
 }
 
 export function combineMutators(mutators) {
   const types = map(mutators, 'type');
   const initialState = assign({}, ...map(mutators, 'initialState'));
   const mutatorMap = {};
-  forEach(mutators, m => mutatorMap[m.type] = m);
+  for (let i = 0; i < mutators.length; i++) {
+    mutatorMap[mutators[i].type] = mutators[i];
+  }
   return {
     types,
     initialState,
