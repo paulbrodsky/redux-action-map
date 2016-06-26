@@ -20,12 +20,16 @@ export const adder = {
 
 export const multiplier = {
   type: types.multiply,
-  initialState: { value: 0 },
+  initialState: { value: 10 },
   mutate: (state, payload) => {
-    state.value *= payload;
+    state.value = payload * state.value || 1;
   },
 };
 
-export function calculatorMutator() {
-  return combineMutators([adder, multiplier]);
-}
+export const calculator = {
+  mutators: [adder, multiplier],
+  initialState: { value: 100,  displayValue: 'Total 100' },
+  mutate: (state) => {
+    state.displayValue = `Total ${state.value}`;
+  },
+};

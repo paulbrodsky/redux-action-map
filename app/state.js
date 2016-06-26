@@ -1,5 +1,5 @@
 import createReducer from './utils';
-import { adder, multiplier, calculatorMutator } from './mutators';
+import { adder, multiplier, calculator } from './mutators';
 
 /*
  APPSTATE
@@ -9,5 +9,5 @@ import { adder, multiplier, calculatorMutator } from './mutators';
 export default {
   added: createReducer(adder),
   multiplied: createReducer(multiplier),
-  total: createReducer(calculatorMutator()),
+  total: createReducer(calculator),
 };
