@@ -5,7 +5,7 @@ import { createStore, combineReducers } from 'redux';
 
 import appState from './state';
 
-import Calculator from './calculator';
+import View from './view';
 
 const reducers = combineReducers(appState);
 const store = createStore(reducers);
@@ -13,7 +13,7 @@ const store = createStore(reducers);
 const renderApp = () => {
   return (
     <Provider store={store}>
-      <Calculator />
+      <View />
     </Provider>
   );
 };

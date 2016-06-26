@@ -1,35 +1,33 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import mathCommands from './commands';
+import { createCommand } from './utils';
 
-class Calculator extends React.Component {
-  // static propTypes = {
-  //   add: PropTypes.func.isRequired,
-  //   multiply: PropTypes.func.isRequired,
-  //   state: PropTypes.object.isRequired,
-  // };
-
-  render() {
-    const { add, multiply, state } = this.props;
-    return (
-      <div>
-        <div>{state.added.value}</div>
-        <div>{state.multiplied.value}</div>
-        <div>{state.total.value}</div>
-        <div>{state.total.displayValue}</div>
-        <button onClick={() => add(1)}>Add 1</button>
-        <button onClick={() => add(10)}>Add 10</button>
-        <button onClick={() => multiply(2)}>Multiply by 2</button>
-        <button onClick={() => multiply(10)}>Multiple by 10</button>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    state,
-  };
+const initialState = {
+  value: 0
 };
 
-export default connect(mapStateToProps, mathCommands)(Calculator);
+export const calculator = {
+  add: (state, payload) => {
+    state.value += payload;
+  },
+  multiply: (state, payload) => {
+    state.value = payload * state.value || 1;
+  },
+};
+
+const types = {
+  add: 'ADD',
+  subtract: 'SUBTRACT',
+  multiply: 'MULTIPLY',
+  divide: 'DIVIDE',
+};
+
+export const actionMap = {
+  initialState,
+  [types.add]: calculator.add,
+  [types.multiply]: calculator.multiply,
+  commands: (dispatch) => {
+    return {
+      add: createCommand(dispatch, types.add),
+      multiply: createCommand(dispatch, types.multiply),
+    };
+  },
+};

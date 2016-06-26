@@ -1,13 +1,6 @@
 import createReducer from './utils';
-import { adder, multiplier, calculator } from './mutators';
-
-/*
- APPSTATE
- Defines the topolgy of the global state in one place.
- */
+import { actionMap as calculatorActionMap } from './calculator';
 
 export default {
-  added: createReducer(adder),
-  multiplied: createReducer(multiplier),
-  total: createReducer(calculator),
+  calculator: createReducer(calculatorActionMap),
 };
