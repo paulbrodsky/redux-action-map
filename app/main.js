@@ -8,7 +8,7 @@ import appState from './state';
 import View from './view';
 
 const reducers = combineReducers(appState);
-const store = createStore(reducers);
+const store = createStore(reducers, {}, window.devToolsExtension && window.devToolsExtension());
 
 const renderApp = () => {
   return (

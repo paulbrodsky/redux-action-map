@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { actionMap as calculatorActionMap } from './calculator';
+import { createCommand } from './utils';
+import { actionTypes as calculatorActionTypes } from './calculator';
 
 class View extends React.Component {
   // static propTypes = {
@@ -29,4 +30,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, calculatorActionMap.commands)(View);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    add: createCommand(dispatch, calculatorActionTypes.add),
+    multiply: createCommand(dispatch, calculatorActionTypes.multiply),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(View);
