@@ -1,25 +1,29 @@
 const initialState = {
+  isCalculating: false,
   value: 0
 };
 
 export const calculator = {
-  addBefore: (state, payload) => {
-    console.log('addBefore');
+  before: (state) => {
+    state.isCalculating = true;
+  },
+  after: (state) => {
+    state.isCalculating = false;
   },
   add: (state, payload) => {
     state.value += payload;
   },
-  addAfter: (state, payload) => {
-    console.log('addAfter');
-  },
-  multiplyBefore: (state, payload) => {
-    console.log('multiplyBefore');
-  },
   multiply: (state, payload) => {
     state.value = payload * state.value || 1;
-  },
-  multiplyAfter: (state, payload) => {
-    console.log('multiplyAfter');
+
+    // todo promises?
+    // return new Promise((resolve) => {
+    //   setTimeout(function () {
+    //     debugger;
+    //     state.value = payload * state.value || 1;
+    //     resolve();
+    //   }, 5000);
+    // })
   },
 };
 
@@ -32,7 +36,6 @@ export const actionTypes = {
 
 export const actionMap = {
   initialState,
-  ['ADD:BEFORE']: calculator.addBefore,
-  [actionTypes.add]: calculator.add,
-  [actionTypes.multiply]: calculator.multiply,
+  [actionTypes.add]: [calculator.before, calculator.add, calculator.after],
+  [actionTypes.multiply]: [calculator.before, calculator.multiply, calculator.after],
 };

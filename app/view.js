@@ -32,8 +32,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    add: createCommand(dispatch, calculatorActionTypes.add),
-    multiply: createCommand(dispatch, calculatorActionTypes.multiply),
+    add: (payload) => dispatch({ type: calculatorActionTypes.add, payload }),
+    multiply: (payload) => dispatch({ type: calculatorActionTypes.multiply, payload }),
   };
 };
 

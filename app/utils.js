@@ -1,15 +1,4 @@
-import { assign, isUndefined } from 'lodash';
-
-const BEFORE_LABEL = 'BEFORE';
-const AFTER_LABEL = 'AFTER';
-
-function getBeforeActionType(type) {
-  return `${type}:${BEFORE_LABEL}`;
-}
-
-function getAfterActionType(type) {
-  return `${type}:${AFTER_LABEL}`;
-}
+import { assign, isUndefined, isArray } from 'lodash';
 
 export default function createReducer(actionMap) {
   return (state = actionMap.initialState, action) => {
@@ -17,18 +6,14 @@ export default function createReducer(actionMap) {
       return;
     }
     if (action.type in actionMap) {
-      const newState = assign({}, state);
-      actionMap[action.type](newState, action.payload);
+      const actions = isArray(actionMap[action.type]) ? actionMap[action.type] : [actionMap[action.type]];
+      let newState = state;
+      for (let i = 0; i < actions.length; i++) {
+        newState = assign({}, newState);
+        actions[i](newState, action.payload);
+      }
       return newState;
     }
     return state;
-  };
-}
-
-export function createCommand(dispatch, type) {
-  return (payload) => {
-    dispatch({ type: getBeforeActionType(type), payload });
-    dispatch({ type, payload });
-    dispatch({ type: getAfterActionType(type), payload });
   };
 }
