@@ -15,15 +15,6 @@ const calculator = {
   },
   multiply: (state, payload) => {
     state.value = payload * state.value || 1;
-
-    // todo promises?
-    // return new Promise((resolve) => {
-    //   setTimeout(function () {
-    //     debugger;
-    //     state.value = payload * state.value || 1;
-    //     resolve();
-    //   }, 5000);
-    // })
   },
 };
 
