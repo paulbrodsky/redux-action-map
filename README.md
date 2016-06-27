@@ -11,12 +11,21 @@ export const actionMap = {
 ```
 
 - calculator
+
     business logic and corresponding action map
+
 - commands
+
     action dispatchers generated from the calculator action map
+
 - state
+
     definies topology for global app state
+
 - utils
+
     functions to generate reducers from action maps
+
 - view
+
     our calculator app
