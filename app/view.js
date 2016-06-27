@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { actionTypes as calculatorActionTypes } from './calculator';
+import { calculatorCommands } from './commands';
 
 class View extends React.Component {
   render() {
@@ -29,11 +29,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    add: (payload) => dispatch({ type: calculatorActionTypes.add, payload }),
-    multiply: (payload) => dispatch({ type: calculatorActionTypes.multiply, payload }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(View);
+export default connect(mapStateToProps, calculatorCommands)(View);
