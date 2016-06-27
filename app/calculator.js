@@ -3,7 +3,7 @@ const initialState = {
   value: 0
 };
 
-export const calculator = {
+const calculator = {
   before: (state) => {
     state.isCalculating = true;
   },

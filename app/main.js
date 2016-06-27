@@ -1,14 +1,27 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 import appState from './state';
 
 import View from './view';
 
-const reducers = combineReducers(appState);
-const store = createStore(reducers, {}, window.devToolsExtension && window.devToolsExtension());
+const logger = store => next => action => {
+  console.group(action.type);
+  console.info('dispatching', action);
+  let result = next(action);
+  console.log('next state', store.getState());
+  console.groupEnd(action.type);
+  return result;
+};
+
+const reducer = combineReducers(appState);
+
+const store = createStore(reducer, compose(
+  applyMiddleware(logger),
+  window.devToolsExtension ? window.devToolsExtension() : _ => _
+));
 
 const renderApp = () => {
   return (
