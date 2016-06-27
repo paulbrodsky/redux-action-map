@@ -10,22 +10,8 @@ export const actionMap = {
 };
 ```
 
-- calculator
-
-    business logic and corresponding action map
-
-- commands
-
-    action dispatchers generated from the calculator action map
-
-- state
-
-    definies topology for global app state
-
-- utils
-
-    functions to generate reducers from action maps
-
-- view
-
-    our calculator app
+- calculator.js: Business logic and corresponding action map
+- commands.js: Action dispatchers generated from the calculator action map
+- state.js: Definies topology for global app state
+- utils.js: Functions to generate reducers from action maps
+- view.js: Our calculator app
