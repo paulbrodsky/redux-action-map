@@ -5,14 +5,14 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /.js?$/,
+        test: /\.js?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
           presets: ['es2015', 'react', 'react-hmre'],
         },
       },
-      // { test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/ },
+      { test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/ },
     ],
   },
 };

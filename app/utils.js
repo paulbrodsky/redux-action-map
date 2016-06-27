@@ -6,13 +6,13 @@ export default function createReducer(actionMap) {
       return;
     }
     if (action.type in actionMap) {
-      const actions = isArray(actionMap[action.type]) ? actionMap[action.type] : [actionMap[action.type]];
-      let newState = state;
+      const actions = isArray(actionMap[action.type])
+        ? actionMap[action.type]
+        : [actionMap[action.type]];
       for (let i = 0; i < actions.length; i++) {
-        newState = assign({}, newState);
-        actions[i](newState, action.payload);
+        const newState = actions[i](state, action.payload);
+        state = assign({}, state, newState);
       }
-      return newState;
     }
     return state;
   };

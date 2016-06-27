@@ -1,20 +1,28 @@
 const initialState = {
   isCalculating: false,
-  value: 0
+  value: 0,
 };
 
 const calculator = {
-  before: (state) => {
-    state.isCalculating = true;
+  before: () => {
+    return {
+      isCalculating: true,
+    };
   },
-  after: (state) => {
-    state.isCalculating = false;
+  after: () => {
+    return {
+      isCalculating: false,
+    };
   },
   add: (state, payload) => {
-    state.value += payload;
+    return {
+      value: state.value + payload,
+    };
   },
   multiply: (state, payload) => {
-    state.value = payload * state.value || 1;
+    return {
+      value: payload * state.value || 1,
+    };
   },
 };
 
