@@ -1,3 +1,5 @@
+import { assign } from 'lodash';
+
 const initialState = {
   isCalculating: false,
   value: 0,
@@ -30,6 +32,9 @@ const calculator = {
       value: payload * state.value || 1,
     }), 1000);
   },
+  resolve: (state, payload) => {
+    return assign({}, state, payload);
+  },
 };
 
 export const actionTypes = {
@@ -43,4 +48,5 @@ export const actionMap = {
   initialState,
   [actionTypes.add]: [calculator.before, calculator.add, calculator.after],
   [actionTypes.multiply]: [calculator.before, calculator.multiply, calculator.after],
+  RESOLVE: calculator.resolve,
 };
