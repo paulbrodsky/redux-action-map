@@ -3,6 +3,12 @@ const initialState = {
   value: 0,
 };
 
+function promiseTimeout(action, delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(action()), delay);
+  });
+}
+
 const calculator = {
   before: () => {
     return {
@@ -20,11 +26,9 @@ const calculator = {
     };
   },
   multiply: (state, payload) => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({
-        value: payload * state.value || 1,
-      }), 2000);
-    });
+    return promiseTimeout(() => ({
+      value: payload * state.value || 1,
+    }), 1000);
   },
 };
 
