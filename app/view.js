@@ -8,6 +8,7 @@ class View extends React.Component {
     return (
       <div>
         <div>{state.calculator.value}</div>
+        <div>{state.calculator.isCalculating ? 'Calculating' : ''}</div>
         <button onClick={() => add(1)}>Add 1</button>
         <button onClick={() => add(10)}>Add 10</button>
         <button onClick={() => multiply(2)}>Multiply by 2</button>

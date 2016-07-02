@@ -20,9 +20,11 @@ const calculator = {
     };
   },
   multiply: (state, payload) => {
-    return {
-      value: payload * state.value || 1,
-    };
+    return new Promise((resolve) => {
+      setTimeout(() => resolve({
+        value: payload * state.value || 1,
+      }), 2000);
+    });
   },
 };
 

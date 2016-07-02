@@ -1,6 +1,12 @@
 import { assign, isUndefined, isArray } from 'lodash';
+import Promise from 'bluebird';
 
-function getActions(actionMap, type) {
+export const ACTION_TYPES = {
+  resolve: 'RESOLVE',
+  error: 'ERROR',
+};
+
+function getMutators(actionMap, type) {
   return isArray(actionMap[type])
     ? actionMap[type]
     : [actionMap[type]];
@@ -11,13 +17,24 @@ export default function createReducer(actionMap) {
     if (isUndefined(state) || isUndefined(action)) {
       return;
     }
+
     if (action.type in actionMap) {
-      const actions = getActions(actionMap, action.type);
-      for (let i = 0; i < actions.length; i++) {
-        const newState = actions[i](state, action.payload);
-        state = assign({}, state, newState);
-      }
+      const mutators = getMutators(actionMap, action.type);
+      Promise.each(mutators, (m) => {
+        return Promise.resolve(m(state, action.payload))
+          .then(s => {
+            action.dispatch({ type: ACTION_TYPES.resolve, payload: s });
+          })
+          .catch(e => {
+            action.dispatch({ type: ACTION_TYPES.error, payload: e });
+          });
+      });
+    } else if (action.type === ACTION_TYPES.resolve) {
+      return assign({}, state, action.payload);
+    } else if (action.type === ACTION_TYPES.error) {
+      // todo log error
     }
+
     return state;
   };
 }
@@ -27,10 +44,10 @@ export function createDispatcher(actionMap, types) {
     const commands = {};
     for (let i = 0; i < types.length; i++) {
       const type = types[i];
-      const actions = getActions(actionMap, type);
-      for (let j = 0; j < actions.length; j++) {
-        const action = actions[j];
-        commands[action.name] = (payload) => dispatch({ type, payload });
+      const mutators = getMutators(actionMap, type);
+      for (let j = 0; j < mutators.length; j++) {
+        const mutator = mutators[j];
+        commands[mutator.name] = (payload) => dispatch({ type, payload, dispatch });
       }
     }
     return commands;
