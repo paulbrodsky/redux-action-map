@@ -10,6 +10,8 @@
     "no-console": 0,
     "no-restricted-syntax": 0,
     "no-debugger": 0,
-    "new-cap": 0
+    "new-cap": 0,
+    "max-len": 0,
+    "brace-style": 0
   }
 }

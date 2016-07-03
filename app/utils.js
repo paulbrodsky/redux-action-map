@@ -23,11 +23,13 @@ export default function createReducer(actionMap) {
         return actionMap[ACTION_TYPES.resolve](state, action.payload);
       }
       return assign({}, state, action.payload);
-    } else if (action.type === ACTION_TYPES.error) {
+    }
+    else if (action.type === ACTION_TYPES.error) {
       if (actionMap.hasOwnProperty(ACTION_TYPES.error)) {
         return actionMap[ACTION_TYPES.error](state, action.payload);
       }
-    } else if (action.type in actionMap) {
+    }
+    else if (action.type in actionMap) {
       const mutators = getMutators(actionMap, action.type);
       Promise.each(mutators, (m) => {
         return Promise.resolve(m(state, action.payload))
@@ -55,6 +57,7 @@ export function createDispatcher(actionMap, types) {
         commands[mutator.name] = (payload) => dispatch({ type, payload, dispatch });
       }
     }
+    debugger;
     return commands;
   };
 }
